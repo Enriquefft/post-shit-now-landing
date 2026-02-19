@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #0A0A0B;
+  --color-surface: #141417;
+  --color-surface-raised: #1A1A1F;
+  --color-edge: #1F1F23;
+  --color-edge-light: #2A2A30;
+  --color-neon: #00FF88;
+  --color-neon-dim: #00cc6a;
+  --color-iris: #A78BFA;
+  --color-snow: #F5F5F5;
+  --color-ash: #9CA3AF;
+  --color-smoke: #6B7280;
+
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: #1F1F23 #0A0A0B;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-snow);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(0, 255, 136, 0.2);
+  color: #fff;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0A0A0B; }
+::-webkit-scrollbar-thumb { background: #1F1F23; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2A2A30; }
+
+/* ── Noise overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ── Scroll animations ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.05s; }
+.stagger-2 { transition-delay: 0.1s; }
+.stagger-3 { transition-delay: 0.15s; }
+.stagger-4 { transition-delay: 0.2s; }
+.stagger-5 { transition-delay: 0.25s; }
+.stagger-6 { transition-delay: 0.3s; }
+
+/* ── Card hover glow ── */
+.card-glow {
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+.card-glow:hover {
+  border-color: rgba(0, 255, 136, 0.2);
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.05), inset 0 1px 0 rgba(0, 255, 136, 0.08);
+  transform: translateY(-3px);
+}
+
+.card-glow-iris {
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+.card-glow-iris:hover {
+  border-color: rgba(167, 139, 250, 0.2);
+  box-shadow: 0 0 40px rgba(167, 139, 250, 0.05), inset 0 1px 0 rgba(167, 139, 250, 0.08);
+  transform: translateY(-3px);
+}
+
+/* ── Neon text glow ── */
+.neon-glow {
+  text-shadow: 0 0 30px rgba(0, 255, 136, 0.25), 0 0 60px rgba(0, 255, 136, 0.08);
+}
+
+/* ── Blinking cursor ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ── Terminal dots ── */
+.terminal-dot-red { background: #FF5F57; }
+.terminal-dot-yellow { background: #FFBD2E; }
+.terminal-dot-green { background: #28CA41; }
+
+/* ── Badge styles ── */
+.badge-ready {
+  background: rgba(0, 255, 136, 0.08);
+  color: #00FF88;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+.badge-soon {
+  background: rgba(167, 139, 250, 0.08);
+  color: #A78BFA;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+/* ── Hero float animation ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.hero-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ── Gradient text ── */
+.gradient-text {
+  background: linear-gradient(135deg, #00FF88 0%, #A78BFA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
